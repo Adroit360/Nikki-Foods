@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="closingTime__error" *ngIf="closeOrder">
+    <div class="info">
+      <span class="material-icons"> info </span>
+      <p>Orders are closed. Open orders</p>
+    </div>
+    <!-- <span class="material-icons close" (click)="onClose()"> close </span> -->
+  </div>
+  <div class="menu-icon">
+    <div
+      class="menu-icon-bars"
+      [ngClass]="{
+        change: toggleSidebar
+      }"
+      (click)="onShowSideBar()"
+    >
+      <span class="bar1"></span>
+      <span class="bar2"></span>
+      <span class="bar3"></span>
+    </div>
+  </div>
+  <div
+    class="sidebar"
+    [ngClass]="{
+      'sidebar-active': toggleSidebar
+    }"
+  >
+    <app-sidebar (toggleSideBar)="onShowSideBar()"> close </app-sidebar>
+  </div>
+  <div class="display-page">
+    <!-- <app-display-page></app-display-page> -->
+    <!-- <app-completed-orders></app-completed-orders> -->
+    <router-outlet></router-outlet>
+  </div>
+</div>

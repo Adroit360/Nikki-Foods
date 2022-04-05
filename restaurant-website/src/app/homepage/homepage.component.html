@@ -1,0 +1,98 @@
+<main class="container">
+  <nav class="navbar">
+    <div class="navbar__logo">
+      <img src="../../assets/gob3Fridaylogo.png" alt="company logo" />
+    </div>
+    <div class="navbar__links">
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#event">Events</a></li>
+      </ul>
+    </div>
+    <!-- <div class="navbar__right">
+      <a href="#menu">
+        <button class="navbar__right__button">Order now</button>
+      </a>
+    </div> -->
+  </nav>
+  <div class="closingTime__error" *ngIf="closingTimeError">
+    <div class="info">
+      <span class="material-icons"> info </span>
+      <p>Sorry we have closed. Cannot place orders at this time</p>
+    </div>
+  </div>
+  <div class="body">
+    <div class="body__intro" id="home">
+      <h1>Welcome to gob3 friday</h1>
+      <p class="text_base">Best gob3 in town</p>
+      <p class="text">
+        Order your favourite gob3 from the comfort of your homes with a very
+        fast and quality delivery service
+      </p>
+      <div class="body__intro__buttons">
+        <a href="#menu">
+          <button class="our__menu">see today's menu</button>
+        </a>
+      </div>
+    </div>
+    <div class="body__menu" id="menu">
+      <h1>Our Menu</h1>
+      <div class="menu__container">
+        <div
+          class="menu__meal__card"
+          *ngFor="let item of foodArray.slice(0, 9)"
+        >
+          <div class="card__image">
+            <img src="{{ item.image }}" alt="{{ item.alt }}" />
+          </div>
+          <div class="card__body">{{ item.body }}</div>
+          <div class="card__price">
+            <h4>{{ "GHS " + item.price }}</h4>
+            <button (click)="onProceedToOrderPage(item.id)">order now</button>
+          </div>
+        </div>
+      </div>
+      <div class="special">
+        <h1>Special Orders</h1>
+        <p class="note">
+          Since the 3tor takes time to prepare and it's not prepared every day,
+          please always call or whatsapp first to check if it's available before
+          you make an order thank you😊
+        </p>
+        <div class="menu__container">
+          <div
+            class="menu__meal__card"
+            *ngFor="let item of foodArray.slice(-5)"
+          >
+            <div class="card__image">
+              <img src="{{ item.image }}" alt="{{ item.alt }}" />
+            </div>
+            <div class="card__body">{{ item.body }}</div>
+            <div class="card__price">
+              <h4>{{ "GHS " + item.price }}</h4>
+              <button (click)="onProceedToOrderPage(item.id)">order now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="events" id="event">
+      <p>
+        We also provide quality catering services for various events such as
+        weddings, birthday parties, corporate events ,anniversary among others.
+        Contact Gob3 Friday on <a href="tel:+233553355038">0553355038</a> /
+        <a href="tel:+233249702696">0249702696</a> or send us a message on
+        whatsapp
+        <a
+          href="https://wa.me/233553355038"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          0553355038</a
+        >
+      </p>
+    </div>
+  </div>
+  <app-footer></app-footer>
+</main>
