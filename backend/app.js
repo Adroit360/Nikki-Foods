@@ -76,15 +76,24 @@ app.post("/paystack/event", async function (req, res) {
 
   try {
     if (data.event == "charge.success") {
-      let orderId = (
+      let order = (
         await db
           .collection("orders")
           .where("orderId", "==", data.data.reference)
           .get()
-      ).docs[0].id;
-      await db.collection("orders").doc(orderId).update({
+      ).docs[0];
+      await db.collection("orders").doc(order.id).update({
         orderPaid: true,
       });
+      if (data.data.amount !== 1) {
+        await axios.post(
+          "https://us-central1-delivery-system-adroit.cloudfunctions.net/postOrderToDeliverySystem",
+          {
+            sellerName: "Niki Foods",
+            orderDetails: order.data(),
+          }
+        );
+      }
       res.send(200);
     }
   } catch (error) {
