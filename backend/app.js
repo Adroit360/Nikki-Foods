@@ -11,7 +11,7 @@ const serviceAccount = require("./serviceAccountKey.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://gob3-friday-default-rtdb.firebaseio.com",
+  databaseURL: "https://nikki-foods-default-rtdb.firebaseio.com",
 });
 
 // firebase database object
