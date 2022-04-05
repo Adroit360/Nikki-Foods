@@ -43,8 +43,8 @@ export class OrderPageComponent implements OnInit {
     private route: ActivatedRoute,
     public domSanitizer: DomSanitizer
   ) {
-    this.socket = io('https://gob3-friday.herokuapp.com/');
-    // this.socket = io('http://localhost:8000/');
+    // this.socket = io('https://gob3-friday.herokuapp.com/');
+    this.socket = io('http://localhost:8000/');
     this.foodArray = this.socketService.getAllFoods();
   }
 
@@ -69,8 +69,8 @@ export class OrderPageComponent implements OnInit {
   public data: any;
   modalOpen = false;
 
-  url = 'https://gob3-friday.herokuapp.com/paystack/payment';
-  // url = 'http://localhost:8000/paystack/payment';
+  // url = 'https://gob3-friday.herokuapp.com/paystack/payment';
+  url = 'http://localhost:8000/paystack/payment';
 
   paymentError = true;
   paymentSuccess = false;

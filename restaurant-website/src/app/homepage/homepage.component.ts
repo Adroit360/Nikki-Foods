@@ -35,7 +35,7 @@ export class HomepageComponent implements OnInit {
   ngOnInit(): void {
     // this.breakTime = this.socketService.getClosingTime();
     // this.http
-    //   .get('https://gob3-friday.herokuapp.com/')
+    //   .get('')
     //   .subscribe((res: any) => {
     //     this.orderStatus = res.orderStatus;
     //     const currentDate = new Date();
