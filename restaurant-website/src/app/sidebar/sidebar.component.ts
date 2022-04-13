@@ -22,20 +22,18 @@ export class SidebarComponent implements OnInit {
     private http: HttpClient,
     private activatedRoute: ActivatedRoute
   ) {
-    this.socket = io('https://gob3-friday.herokuapp.com/');
+    this.socket = io('http://localhost:8000/');
     this.showFailed = activatedRoute.snapshot.queryParams['showFailed'];
     // console.log('showFailed', this.showFailed);
   }
 
   ngOnInit(): void {
-    this.http
-      .get('https://gob3-friday.herokuapp.com/')
-      .subscribe((res: any) => {
-        this.orderStatus = res.orderStatus;
-        if (this.orderStatus) {
-          this.closeOrder = true;
-        }
-      });
+    this.http.get('http://localhost:8000/').subscribe((res: any) => {
+      this.orderStatus = res.orderStatus;
+      if (this.orderStatus) {
+        this.closeOrder = true;
+      }
+    });
 
     this.socket.on('orderStatus', (res: { orderStatus: boolean }) => {
       this.orderStatus = res.orderStatus;
@@ -63,7 +61,7 @@ export class SidebarComponent implements OnInit {
       }),
     };
     this.http
-      .post('https://gob3-friday.herokuapp.com/api/openOrders', {}, httpOptions)
+      .post('http://localhost:8000/api/openOrders', {}, httpOptions)
       .subscribe();
     this.onToggleSidebar();
   }
@@ -75,11 +73,7 @@ export class SidebarComponent implements OnInit {
       }),
     };
     this.http
-      .post(
-        'https://gob3-friday.herokuapp.com/api/closeOrders',
-        {},
-        httpOptions
-      )
+      .post('http://localhost:8000/api/closeOrders', {}, httpOptions)
       .subscribe();
     this.onToggleSidebar();
   }

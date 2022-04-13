@@ -17,8 +17,8 @@ export class HomepageComponent implements OnInit {
     private socketService: SocketService,
     private http: HttpClient
   ) {
-    this.socket = io('https://gob3-friday.herokuapp.com/');
     // this.socket = io('http://localhost:8000/');
+    this.socket = io('http://localhost:8000/');
   }
 
   foodArray: any;
@@ -52,7 +52,7 @@ export class HomepageComponent implements OnInit {
     //   });
 
     this.http
-      .get('https://gob3-friday.herokuapp.com/')
+      .get('http://localhost:8000/')
       .subscribe((res: any) => {
         this.orderStatus = res.orderStatus;
         if (this.orderStatus) {
