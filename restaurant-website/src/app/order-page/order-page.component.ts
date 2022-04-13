@@ -45,7 +45,7 @@ export class OrderPageComponent implements OnInit {
   ) {
     // this.socket = io('http://localhost:8000/');
     this.socket = io('http://localhost:8000/');
-    this.foodArray = this.socketService.getAllFoods();
+    this.foodArray = this.socketService.getAllFoods(new Date().getDay());
   }
 
   orderForm = new FormGroup({
@@ -88,7 +88,10 @@ export class OrderPageComponent implements OnInit {
     window.scroll(0, 0);
     this.route.paramMap.subscribe((params) => {
       const id: any = params.get('id');
-      const data: Food = this.socketService.getFoodByID(id);
+      const data: Food = this.socketService.getFoodByID(
+        new Date().getDay(),
+        id
+      );
       this.price = data.price;
       this.priceOfFood = data.price;
       this.orderForm.patchValue({
@@ -246,7 +249,7 @@ export class OrderPageComponent implements OnInit {
   addAnotherItem() {
     let foodOrderedIds = this.foodsOrdered.map((i) => i.id);
     this.foodArray = this.socketService
-      .getAllFoods()
+      .getAllFoods(new Date().getDay())
       .filter((i) => !foodOrderedIds.includes(i.id));
     this.addAnotherItemModal = true;
   }
@@ -256,7 +259,7 @@ export class OrderPageComponent implements OnInit {
   }
 
   addFood(id: string): void {
-    const data: Food = this.socketService.getFoodByID(id);
+    const data: Food = this.socketService.getFoodByID(new Date().getDay(), id);
     this.foodsOrdered.push({
       id,
       foodName: data.body,

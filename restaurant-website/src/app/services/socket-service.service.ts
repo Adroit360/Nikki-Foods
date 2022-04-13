@@ -16,9 +16,23 @@ export class SocketService {
       data: [
         {
           id: '33cc84aebc4b49b9bdc181782680c493',
-          body: 'Gob3 small pack',
-          image: '../../assets/standardPack.jpeg',
-          alt: 'Beans with plantain(Mini size)',
+          body: 'Okro soup with banku',
+          image: '../../assets/okrosoupandbanku.jpeg',
+          alt: 'Okro soup with banku',
+          price: '15.00',
+        },
+        {
+          id: '33cc84aebc4b49b9bdc181782680c494',
+          body: 'Banku with grilled tilapia',
+          image: '../../assets/grilledTilapiawithbanku.jpeg',
+          alt: 'Banku with tilapia',
+          price: '15.00',
+        },
+        {
+          id: '33cc84aebc4b49b9bdc181782680c495',
+          body: 'Jollof with grilled chicken',
+          image: '../../assets/chickenwithjollof.jpeg',
+          alt: 'jollof with grilled chicken',
           price: '15.00',
         },
       ],

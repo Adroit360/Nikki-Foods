@@ -51,7 +51,9 @@ export class HomepageComponent implements OnInit {
       }
     });
 
-    this.foodArray = this.socketService.getAllFoods();
+    // get the food based on the current day
+    // this.foodArray = this.socketService.getAllFoods(new Date().getDay());
+    this.foodArray = this.socketService.getAllFoods(2);
   }
 
   onProceedToOrderPage(id: number): void {
