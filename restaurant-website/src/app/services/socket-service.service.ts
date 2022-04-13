@@ -35,6 +35,13 @@ export class SocketService {
           alt: 'jollof with grilled chicken',
           price: '15.00',
         },
+        {
+          id: '33cc84aebc4b49b9bdc181782680c496',
+          body: 'Beef jollof rice',
+          image: '../../assets/beefjollofrice.jpeg',
+          alt: 'beef jollof rice',
+          price: '15.00',
+        },
       ],
     },
     {
