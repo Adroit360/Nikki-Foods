@@ -48,14 +48,18 @@
 .container {
   height: 100vh;
   .navbar {
-    background-image: linear-gradient(
-      to right bottom,
-      #fff200,
-      #ebd817,
-      #d6c021,
-      #c0a827,
-      #aa912a
-    );
+    background: #24c6dc; /* fallback for old browsers */
+    background: -webkit-linear-gradient(
+      to right,
+      #514a9d,
+      #24c6dc
+    ); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(
+      to right,
+      #514a9d,
+      #24c6dc
+    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
     display: flex;
     align-items: center;
     padding: 0rem 1rem;
