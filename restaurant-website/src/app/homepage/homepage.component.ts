@@ -12,6 +12,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HomepageComponent implements OnInit {
   private socket: any;
+  day = new Date().getDay();
   constructor(
     private router: Router,
     private socketService: SocketService,
@@ -52,22 +53,17 @@ export class HomepageComponent implements OnInit {
     });
 
     // get the food based on the current day
-    // this.foodArray = this.socketService.getAllFoods(new Date().getDay());
-    this.foodArray = this.socketService.getAllFoods(3);
+    this.foodArray = this.socketService.getAllFoods(this.day);
   }
 
   onProceedToOrderPage(id: number): void {
     if (this.orderStatus) {
       this.closingTimeError = true;
-    } else if (this.foodArray.day !== new Date().getDay()) {
-      if (
-        new Date().getDay() === 6 ||
-        new Date().getDay() === 0 ||
-        new Date().getDay() === 1
-      ) {
+    } else if (this.foodArray.day !== this.day) {
+      if (this.day === 6 || this.day === 0 || this.day === 1) {
         this.closingTimeError = true;
       } else {
-        this.foodArray = this.socketService.getAllFoods(new Date().getDay());
+        this.foodArray = this.socketService.getAllFoods(this.day);
       }
     } else {
       this.closingTimeError = false;
