@@ -83,12 +83,17 @@ export class OrderPageComponent implements OnInit {
   deliveryFee = 0;
   totalPrice = 0;
   clientTransactionId = '';
+  day = new Date().getDay();
+  //day = 3;
 
   ngOnInit(): void {
     window.scroll(0, 0);
     this.route.paramMap.subscribe((params) => {
       const id: any = params.get('id');
-      const data: Food = this.socketService.getFoodByID(3, id);
+      const data: Food = this.socketService.getFoodByID(
+        new Date().getDay(),
+        id
+      );
       this.price = data.price;
       this.priceOfFood = data.price;
       this.orderForm.patchValue({

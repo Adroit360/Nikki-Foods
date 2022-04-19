@@ -59,16 +59,16 @@ export class HomepageComponent implements OnInit {
   onProceedToOrderPage(id: number): void {
     if (this.orderStatus) {
       this.closingTimeError = true;
-      // } else if (this.foodArray.day !== new Date().getDay()) {
-      //   if (
-      //     new Date().getDay() === 6 ||
-      //     new Date().getDay() === 0 ||
-      //     new Date().getDay() === 1
-      //   ) {
-      //     this.closingTimeError = true;
-      //   } else {
-      //     this.foodArray = this.socketService.getAllFoods(new Date().getDay());
-      //   }
+    } else if (this.foodArray.day !== new Date().getDay()) {
+      if (
+        new Date().getDay() === 6 ||
+        new Date().getDay() === 0 ||
+        new Date().getDay() === 1
+      ) {
+        this.closingTimeError = true;
+      } else {
+        this.foodArray = this.socketService.getAllFoods(new Date().getDay());
+      }
     } else {
       this.closingTimeError = false;
       console.log(this.foodArray);
