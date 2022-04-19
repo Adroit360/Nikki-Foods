@@ -57,22 +57,21 @@ export class HomepageComponent implements OnInit {
   }
 
   onProceedToOrderPage(id: number): void {
-    // const currentDate = new Date();
-    // const currentTime = currentDate.toString().split(' ')[4].toString();
-    // if (
-    //   currentTime < this.breakTime.openingTime ||
-    //   currentTime > this.breakTime.closingTime ||
-    //   this.orderStatus
-    // ) {
-    //   this.closingTimeError = true;
-    // } else {
-    //   this.closingTimeError = false;
-    //   this.router.navigate(['/orders', id]);
-    // }
     if (this.orderStatus) {
       this.closingTimeError = true;
+      // } else if (this.foodArray.day !== new Date().getDay()) {
+      //   if (
+      //     new Date().getDay() === 6 ||
+      //     new Date().getDay() === 0 ||
+      //     new Date().getDay() === 1
+      //   ) {
+      //     this.closingTimeError = true;
+      //   } else {
+      //     this.foodArray = this.socketService.getAllFoods(new Date().getDay());
+      //   }
     } else {
       this.closingTimeError = false;
+      console.log(this.foodArray);
       this.router.navigate(['/orders', id]);
     }
   }

@@ -152,13 +152,26 @@ export class SocketService {
     },
   ];
 
+  // getFoodByID(day: number, id: string): Food {
+  //   const food = this.foodArray.filter((item) => item.day === day)[0];
+  //   return food.data.filter((item) => item.id === id)[0];
+  // }
+
+  // getAllFoods(day: number): Food[] {
+  //   return this.foodArray.filter((item) => item.day === day)[0].data;
+  // }
+
+  // getClosingTime(): { closingTime: string; openingTime: string } {
+  //   return { closingTime: this.closingTime, openingTime: this.openingTime };
+  // }
+
   getFoodByID(day: number, id: string): Food {
     const food = this.foodArray.filter((item) => item.day === day)[0];
     return food.data.filter((item) => item.id === id)[0];
   }
 
-  getAllFoods(day: number): Food[] {
-    return this.foodArray.filter((item) => item.day === day)[0].data;
+  getAllFoods(day: number): { day: number; data: Food[] } {
+    return this.foodArray.filter((item) => item.day === day)[0];
   }
 
   getClosingTime(): { closingTime: string; openingTime: string } {
