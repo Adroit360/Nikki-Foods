@@ -12,7 +12,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HomepageComponent implements OnInit {
   private socket: any;
-  day = new Date().getDay();
+  // day = new Date().getDay();
+  day = 4;
   constructor(
     private router: Router,
     private socketService: SocketService,
