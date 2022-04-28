@@ -50,14 +50,14 @@ export class SocketService {
         {
           id: '33cc84aebc4b49b9bdc181782680c497',
           body: 'Naneflor(pork trotters/pigfeet) stew with rice',
-          image: '../../assets/NaneFlorwithrice.jpeg',
+          image: '../../assets/naneflorwithplainrice.jpeg',
           alt: 'Naneflor(pork trotters/pigfeet) stew with rice',
           price: '40.00',
         },
         {
           id: '33cc84aebc4b49b9bdc181782680c498',
           body: 'Naneflor(pork trotters/pigfeet) stew with Ga kenkey',
-          image: '../../assets/standardPack.jpeg',
+          image: '../../assets/naneflorwithplainrice.jpeg',
           alt: 'Naneflor(pork trotters/pigfeet) stew with Ga kenkey',
           price: '40.00',
         },
