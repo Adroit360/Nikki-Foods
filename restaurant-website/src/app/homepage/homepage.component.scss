@@ -161,6 +161,10 @@
         @media screen and (max-width: 900px) {
           font-size: 3rem;
         }
+        @media screen and (max-width: 550px) {
+          font-size: 1.5rem;
+          word-break: break-word;
+        }
       }
 
       .text {
@@ -293,6 +297,14 @@
   font-size: 1.2rem;
   padding: 1rem;
 }
+
+.no__food {
+  font-size: 1.5rem;
+  text-align: center;
+  color: #d74545;
+  margin-top: 0;
+}
+
 /**
 1. background-image: linear-gradient(to bottom, #9206a4, #6b1482, #481460, #2b0f3e, #14001d);
 2. background-image: linear-gradient(to right bottom, #ddd6f3, #e6cbea, #f1bfda, #f9b4c3, #faaca8);
