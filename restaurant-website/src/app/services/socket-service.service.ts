@@ -137,7 +137,7 @@ export class SocketService {
         {
           id: '33cc84aebc4b49b9bdc181782680c108',
           body: 'Afrafra Nkwan(Mixed Protein soup) with fufu',
-          image: '../../assets/standardPack.jpeg',
+          image: '../../assets/fufuwithafrafrankwan.jpeg',
           alt: 'Afrafra Nkwan(Mixed Protein soup) with fufu',
           price: '40.00',
         },
