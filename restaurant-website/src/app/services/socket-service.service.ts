@@ -24,7 +24,7 @@ export class SocketService {
         {
           id: '33cc84aebc4b49b9bdc181782680c494',
           body: 'Banku with grilled tilapia',
-          image: '../../assets/grilledTilapiawithbanku.jpeg',
+          image: '../../assets/grilledtilapia2.jpeg',
           alt: 'Banku with tilapia',
           price: '40.00',
         },
