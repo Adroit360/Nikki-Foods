@@ -26,6 +26,7 @@ export class HomepageComponent implements OnInit {
   foodArray: any;
   closingTime: string = '';
   currentTime: string = '';
+  closed = false;
   public orderStatus: boolean = false;
   breakTime: { closingTime: string; openingTime: string } = {
     closingTime: '',
@@ -55,9 +56,11 @@ export class HomepageComponent implements OnInit {
 
     if (this.day === 6 || this.day === 0 || this.day === 1) {
       this.closingTimeError = true;
+      this.closed = true;
     } else {
       // get the food based on the current day
       this.foodArray = this.socketService.getAllFoods(this.day);
+      this.closed = false;
     }
   }
 

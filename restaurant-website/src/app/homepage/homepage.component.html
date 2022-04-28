@@ -38,7 +38,7 @@
     </div>
     <div class="body__menu" id="menu">
       <h1>Our Menu</h1>
-      <div class="menu__container" *ngIf="foodArray.length > 0">
+      <div class="menu__container" *ngIf="!closed">
         <div class="menu__meal__card" *ngFor="let item of foodArray.data">
           <div class="card__image">
             <img src="{{ item.image }}" alt="{{ item.alt }}" />
@@ -50,7 +50,9 @@
           </div>
         </div>
       </div>
-      <p class="no__food">No food available today. we are closed</p>
+      <p class="no__food" *ngIf="closed">
+        No food available today. we are closed
+      </p>
     </div>
   </div>
   <app-footer></app-footer>
