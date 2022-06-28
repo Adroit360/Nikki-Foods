@@ -12,8 +12,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HomepageComponent implements OnInit {
   private socket: any;
-  // day = new Date().getDay();
-  day = 6;
+  //day = new Date().getDay();
+  day = 3;
   constructor(
     private router: Router,
     private socketService: SocketService,
@@ -75,7 +75,6 @@ export class HomepageComponent implements OnInit {
       }
     } else {
       this.closingTimeError = false;
-      console.log(this.foodArray);
       this.router.navigate(['/orders', id]);
     }
   }
