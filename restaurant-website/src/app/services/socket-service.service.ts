@@ -57,7 +57,7 @@ export class SocketService {
         {
           id: '33cc84aebc4b49b9bdc181782680c498',
           body: 'Naneflor(pork trotters/pigfeet) stew with Ga kenkey',
-          image: '../../assets/standardPack.jpeg',
+          image: '../../assets/kenkey.jpeg',
           alt: 'Naneflor(pork trotters/pigfeet) stew with Ga kenkey',
           price: '40.00',
         },
@@ -71,7 +71,7 @@ export class SocketService {
         {
           id: '33cc84aebc4b49b9bdc181782680c100',
           body: 'Fish stew with ga Kenkey',
-          image: '../../assets/standardPack.jpeg',
+          image: '../../assets/kenkey.jpeg',
           alt: 'Fish stew with ga Kenkey',
           price: '40.00',
         },
@@ -116,7 +116,7 @@ export class SocketService {
         {
           id: '33cc84aebc4b49b9bdc181782680c105',
           body: 'Palm nut soup with plain rice',
-          image: '../../assets/standardPack.jpeg',
+          image: '../../assets/plainRice.jpeg',
           alt: 'Palm nut soup with plain rice',
           price: '40.00',
         },
@@ -130,7 +130,7 @@ export class SocketService {
         {
           id: '33cc84aebc4b49b9bdc181782680c107',
           body: 'Fresh tilapia soup with plain rice',
-          image: '../../assets/standardPack.jpeg',
+          image: '../../assets/plainRice.jpeg',
           alt: 'Fresh tilapia soup with plain rice',
           price: '40.00',
         },
@@ -144,7 +144,7 @@ export class SocketService {
         {
           id: '33cc84aebc4b49b9bdc181782680c109',
           body: 'Afrafra Nkwan(Mixed Protein soup) with rice',
-          image: '../../assets/standardPack.jpeg',
+          image: '../../assets/plainRice.jpeg',
           alt: 'Afrafra Nkwan(Mixed Protein soup) with rice',
           price: '40.00',
         },

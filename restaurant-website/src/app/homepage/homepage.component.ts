@@ -13,7 +13,7 @@ import { HttpClient } from '@angular/common/http';
 export class HomepageComponent implements OnInit {
   private socket: any;
   //day = new Date().getDay();
-  day = 5;
+  day = 3;
   constructor(
     private router: Router,
     private socketService: SocketService,
