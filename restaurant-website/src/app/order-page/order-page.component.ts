@@ -274,16 +274,7 @@ export class OrderPageComponent implements OnInit {
     if (this.deliveryFee)
       this.totalPrice = this.getTotalPrice(this.deliveryFee, this.priceOfFood);
 
-    // console.log('foodsOrdered', this.foodsOrdered, foodsPrice);
     return;
-
-    let quantity = event.target.value;
-    this.priceOfFood = (parseFloat(this.price) * parseInt(quantity)).toFixed(2);
-    this.totalPrice = this.getTotalPrice(this.deliveryFee, this.priceOfFood);
-
-    // this.orderForm.patchValue({
-    //   amount: (parseFloat(this.price) * parseInt(quantity)).toFixed(2),
-    // });
   }
 
   onCalculateFee(event: any): void {
@@ -292,16 +283,10 @@ export class OrderPageComponent implements OnInit {
       this.locations.find((item) => item.name === selectedLocation);
     if (!city) {
       this.invalidLocation = true;
-      // this.orderForm.patchValue({
-      //   deliveryFee: '',
-      // });
       this.deliveryFee = 0;
       this.totalPrice = this.getTotalPrice(this.deliveryFee, this.priceOfFood);
     } else {
       this.invalidLocation = false;
-      // this.orderForm.patchValue({
-      //   deliveryFee: city.price.toFixed(2),
-      // });
       this.deliveryFee = city.price;
       this.totalPrice = this.getTotalPrice(this.deliveryFee, this.priceOfFood);
     }
@@ -309,12 +294,7 @@ export class OrderPageComponent implements OnInit {
 
   getTotalPrice(deliveryFee: number, priceOfFood: string): number {
     return deliveryFee + parseInt(priceOfFood);
-    // return 0.01;
   }
-  // onCloseModal(): void {
-  //   this.modalOpen = false;
-  //   this.router.navigate(['/']);
-  // }
   onCloseModal(): void {
     this.payStackModal = false;
     this.router.navigate(['/']);
