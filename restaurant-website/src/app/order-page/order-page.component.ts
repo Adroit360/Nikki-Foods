@@ -27,7 +27,7 @@ export class OrderPageComponent implements OnInit {
     price: number;
   }[] = [];
   foodArray: any[] = [];
-  loading = false;
+  loading = true;
   isValidLocationOrPacks = false;
   momoErrorMessage = '';
   momoError = false;
@@ -60,7 +60,6 @@ export class OrderPageComponent implements OnInit {
   });
 
   orderDetails: any;
-
   private socket: any;
   public data: any;
   modalOpen = false;

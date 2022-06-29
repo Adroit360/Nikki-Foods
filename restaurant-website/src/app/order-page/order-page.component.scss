@@ -54,7 +54,19 @@
   font-size: 0.8rem;
   cursor: pointer;
 }
-
+.nav-container {
+  background: #febe19;
+  display: flex;
+  align-items: center;
+  box-shadow: -1px 1px 6px 0px rgba(0, 0, 0, 0.43);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 4rem;
+  z-index: 10;
+  flex-direction: column;
+}
 .navbar {
   background: #24c6dc; /* fallback for old browsers */
   background: -webkit-linear-gradient(
@@ -133,6 +145,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  // background-color: #dfe6e9;
   padding: 2rem 0rem;
   min-height: 100vh;
   @media screen and (max-width: 770px) {
@@ -153,6 +166,10 @@
 }
 
 .payment__loading {
+  // @include snackBar();
+  // justify-content: flex-start;
+  // gap: 1rem;
+  // background-color: #37a1db;
   .loader,
   .loader:after {
     border-radius: 50%;
@@ -193,15 +210,15 @@
   background-color: #ffffff;
   max-width: 40rem;
   width: 100%;
-  margin: auto;
+  margin: 4rem auto auto auto;
   display: flex;
   flex-direction: column;
   gap: 1rem;
   @media screen and (max-width: 770px) {
-    margin: auto 2rem;
+    margin: 3rem 1rem auto 1rem;
   }
   @media screen and (max-width: 400px) {
-    margin: auto 1rem;
+    margin: 3rem 1rem auto 1rem;
   }
   box-shadow: 0 0 1.125rem 0 rgba(0, 0, 0, 0.2),
     0 0.32rem 0.32rem 0 rgba(0, 0, 0, 0.24);
@@ -245,29 +262,6 @@
         border: 1px solid red;
       }
     }
-    button {
-      background: #24c6dc; /* fallback for old browsers */
-      background: -webkit-linear-gradient(
-        to right,
-        #514a9d,
-        #24c6dc
-      ); /* Chrome 10-25, Safari 5.1-6 */
-      background: linear-gradient(
-        to right,
-        #514a9d,
-        #24c6dc
-      ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-      display: inline-block;
-      cursor: pointer;
-      border: none;
-      color: #000000;
-      font-weight: bold;
-      font-size: 1rem;
-      padding: 1rem;
-      transition: background-color 100ms ease-in;
-      cursor: pointer;
-    }
   }
 }
 
@@ -283,6 +277,12 @@
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 .center {
   position: absolute;
@@ -395,6 +395,26 @@
 }
 
 /****LOADER****/
+.payment__loading2 {
+  .icon {
+    border: none;
+  }
+}
+.payment__error2 {
+  color: rgb(215, 69, 69);
+  .icon {
+    border: 2px solid rgb(215, 69, 69);
+    span {
+      color: rgb(215, 69, 69);
+    }
+  }
+  .description {
+    color: rgb(215, 69, 69);
+    .description-info {
+      color: #111;
+    }
+  }
+}
 .loader,
 .loader:after {
   border-radius: 50%;
@@ -461,13 +481,73 @@
   display: none;
 }
 
+.submit-btn {
+  background: #24c6dc; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #514a9d,
+    #24c6dc
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #514a9d,
+    #24c6dc
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 1rem;
+  transition: background-color 100ms ease-in;
+
+  p {
+    margin: 0;
+  }
+  .loader-2,
+  .loader-2:after {
+    border-radius: 50%;
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+  .loader-2 {
+    border-top: 0.2rem solid rgba(255, 255, 255, 0.2);
+    border-right: 0.2rem solid rgba(255, 255, 255, 0.2);
+    border-bottom: 0.2rem solid rgba(255, 255, 255, 0.2);
+    border-left: 0.2rem solid #ffffff;
+    transform: translateZ(0);
+    animation: load8 0.5s infinite linear;
+  }
+  @-webkit-keyframes load8 {
+    0% {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes load8 {
+    0% {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+}
 .paystack-popup {
   margin-top: 5rem;
   width: 100%;
   border: none;
   height: 100%;
 }
-
 .closepaystackModal {
   width: 3rem;
   height: 3rem;
@@ -486,60 +566,14 @@
 .button--standard {
   display: none;
 }
-.menu__container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  margin: 1rem 2rem 3rem 2rem;
-  @media screen and (max-width: 400px) {
-    margin: 1rem 1rem 3rem 1rem;
-  }
-  .menu__meal__card {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-    background-color: rgb(243 244 246);
-    border: 1px solid rgb(0 0 0 / 0.1);
-    .card__image {
-      width: 100%;
-      height: 13rem;
-      img {
-        width: 100%;
-        height: 100%;
-        // object-fit: contain;
-        background-color: #ffffff;
-        border-top-left-radius: 0.5rem;
-        border-top-right-radius: 0.5rem;
-      }
-    }
-    .card__body {
-      padding: 0 2rem;
-      text-align: left;
-    }
-    .card__price {
-      padding: 0 2rem;
-      text-align: center;
-    }
-    .card__price {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      button {
-        background: #c0a827;
-        border-radius: 10px;
-        display: inline-block;
-        cursor: pointer;
-        border: none;
-        color: #ffffff;
-        width: 6rem;
-        height: 2.2rem;
-        font-weight: bold;
-        font-size: 0.9rem;
-        padding: 0.5rem;
-        transition: background-color 100ms ease-in;
-      }
-    }
-  }
+
+.dismiss-popup-btn {
+  border: none;
+  background: red;
+  padding: 0.5rem 1.5rem;
+  margin-top: 1rem;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
 }
