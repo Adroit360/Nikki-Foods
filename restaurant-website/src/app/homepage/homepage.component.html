@@ -55,5 +55,17 @@
       </p>
     </div>
   </div>
+  <div class="modal" *ngIf="menuAvailable">
+    <div class="popup-payment center">
+      <div class="description">
+        Menu not available today, please select today's menu
+      </div>
+      <div class="dismiss-btn">
+        <button class="dismiss-popup-btn" (click)="onCloseLocationModal()">
+          Dismiss
+        </button>
+      </div>
+    </div>
+  </div>
   <app-footer></app-footer>
 </main>

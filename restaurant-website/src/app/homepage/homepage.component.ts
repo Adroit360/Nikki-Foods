@@ -12,8 +12,9 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HomepageComponent implements OnInit {
   private socket: any;
-  //day = new Date().getDay();
-  day = 3;
+  day = new Date().getDay();
+  // day = 3;
+  menuAvailable = true;
   constructor(
     private router: Router,
     private socketService: SocketService,
@@ -59,7 +60,7 @@ export class HomepageComponent implements OnInit {
       this.closed = true;
     } else {
       // get the food based on the current day
-      this.foodArray = this.socketService.getAllFoods(this.day);
+      this.foodArray = this.socketService.getAllFoods(2);
       this.closed = false;
     }
   }
@@ -77,5 +78,8 @@ export class HomepageComponent implements OnInit {
       this.closingTimeError = false;
       this.router.navigate(['/orders', id]);
     }
+  }
+  onCloseLocationModal() {
+    this.menuAvailable = false;
   }
 }
