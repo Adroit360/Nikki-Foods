@@ -208,7 +208,7 @@
       background-color: #ffffff;
 
       margin: auto;
-      gap: 3rem;
+      gap: 1rem;
       h1 {
         text-align: center;
         text-transform: uppercase;
@@ -304,7 +304,77 @@
   color: #d74545;
   margin-top: 0;
 }
+/*****POPUP MODAL***********/
+.modal {
+  display: block; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 12; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.dismiss-popup-btn {
+  border: none;
+  background: red;
+  padding: 0.5rem 1.5rem;
+  margin-top: 1rem;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
 
+.popup-payment {
+  position: relative;
+  overflow: hidden;
+  .header {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    position: absolute;
+    width: calc(100% - 2rem);
+    top: 0;
+    background-color: white;
+    z-index: 200;
+    left: 0;
+    .left {
+      flex-grow: 1;
+    }
+  }
+  max-width: 25rem;
+  width: 100%;
+  padding: 30px 20px;
+  background: #f5f5f5;
+  border-radius: 10px;
+  box-sizing: border-box;
+  z-index: 2;
+  text-align: center;
+  opacity: 1;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  animation-name: animatetop;
+  animation-duration: 300ms;
+  @media screen and (max-width: 650px) {
+    max-width: calc(100% - 40px);
+  }
+  .icon {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+  }
+}
 /**
 1. background-image: linear-gradient(to bottom, #9206a4, #6b1482, #481460, #2b0f3e, #14001d);
 2. background-image: linear-gradient(to right bottom, #ddd6f3, #e6cbea, #f1bfda, #f9b4c3, #faaca8);

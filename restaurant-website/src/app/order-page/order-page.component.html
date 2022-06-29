@@ -1,4 +1,34 @@
 <!--POPUP MODAL-->
+<div class="modal" *ngIf="modalOpen">
+  <div class="popup center">
+    <div class="icon">
+      <i class="fa fa-check"></i>
+    </div>
+    <div class="title">Success!!</div>
+    <div class="description">
+      Thank you for your order. Please wait while the delivery guy attends to
+      you😊
+    </div>
+    <div class="dismiss-btn">
+      <button id="dismiss-popup-btn" (click)="onCloseModal()">Dismiss</button>
+    </div>
+  </div>
+</div>
+<!--END POPUP MODAL-->
+
+<!--Location-->
+<div class="modal" *ngIf="isValidLocationOrPacks">
+  <div class="popup-payment center">
+    <div class="description">{{ errorMessage }}</div>
+    <div class="dismiss-btn">
+      <button class="dismiss-popup-btn" (click)="onCloseLocationModal()">
+        Dismiss
+      </button>
+    </div>
+  </div>
+</div>
+
+<!--POPUP MODAL-->
 <div class="modal" *ngIf="addAnotherItemModal">
   <div style="max-height: calc(100vh - 4rem)" class="popup center">
     <div class="header">
@@ -24,16 +54,24 @@
 </div>
 <!--END POPUP MODAL-->
 
-<!---PAYMENT RESPONSE MODAL-->
-<div class="modal" *ngIf="paymentLoading">
+<!--PAYMENT FAILED MODAL-->
+<div class="modal" *ngIf="paymentError">
   <div class="popup-payment center">
-    <div class="description">Processing payment...</div>
     <div class="icon">
-      <div class="loader"></div>
+      <span class="material-icons"> info </span>
+    </div>
+    <div class="title">Error!!</div>
+    <div class="description">
+      <p class="description-info">
+        An unexpected error occurred. Please try again later.
+      </p>
+    </div>
+    <div class="dismiss-btn">
+      <button id="dismiss-popup-btn" (click)="onClose()">Close</button>
     </div>
   </div>
 </div>
-<!---END PAYMENT RESPONSE MODAL-->
+<!--END PAYMENT FAILED MODAL-->
 <!--PAYSTACK POPUP-->
 <div class="modal payment__error2" *ngIf="payStackModal">
   <div class="popup center">
@@ -48,20 +86,47 @@
     ></iframe>
   </div>
 </div>
-<!--END PAYMENT FAILED MODAL-->
 <div class="form-container">
-  <nav class="navbar">
-    <div class="navbar__logo">
-      <img src="../../assets/niki-logo.jpeg" alt="company logo" />
+  <nav class="nav-container">
+    <div class="navbar">
+      <div class="navbar__logo">
+        <img src="../../assets/salad.png" alt="company logo" />
+      </div>
+      <div class="navbar__links">
+        <ul>
+          <li><a routerLink="/">Home</a></li>
+        </ul>
+      </div>
     </div>
-    <div class="navbar__links">
-      <ul>
-        <li><a routerLink="/">Home</a></li>
-      </ul>
+    <div class="momo__error" *ngIf="momoError">
+      <div class="info">
+        <span class="material-icons"> info </span>
+        <p>{{ momoErrorMessage }}</p>
+      </div>
+      <!-- <span class="material-icons close" (click)="onClose()"> close </span> -->
     </div>
   </nav>
 
   <div class="container">
+    <!-- <div class="payment__error" *ngIf="paymentError">
+      <div class="info">
+        <span class="material-icons"> info </span>
+        <p>{{ error }}</p>
+      </div>
+      <span class="material-icons close" (click)="onClose()"> close </span>
+    </div> -->
+    <!-- <div class="payment__success" *ngIf="paymentSuccess">
+      <div class="info">
+        <span class="material-icons"> check_circle </span>
+        <p>{{ success }}</p>
+      </div>
+      <span class="material-icons close" (click)="onClose()"> close </span>
+    </div> -->
+    <!-- <div class="payment__loading" *ngIf="paymentLoading">
+      <div class="loader"></div>
+      <p>{{ paymentReason }}</p>
+    </div> -->
+
     <form class="form" [formGroup]="orderForm" (ngSubmit)="onSubmit()">
       <h1 class="form__title">Place order</h1>
       <div class="form__container">
@@ -177,13 +242,12 @@
               (keyup)="calculateAmount($event)"
               [ngClass]="{ 'is-invalid': !item.quantity }"
             />
-          </div>
-
-          <div
-            *ngIf="submitted && f['numberOfPacks'].errors"
-            class="invalid-feedback"
-          >
-            <div>Enter a valid number</div>
+            <div
+              *ngIf="submitted && f['numberOfPacks'].errors && !item.quantity"
+              class="invalid-feedback"
+            >
+              <div>Enter a valid number</div>
+            </div>
           </div>
         </div>
         <div class="form__control">
@@ -222,7 +286,10 @@
           </div>
         </div>
 
-        <button type="submit">Place Order</button>
+        <button type="submit" class="submit-btn">
+          <div class="loader-2" *ngIf="loading"></div>
+          <p *ngIf="!loading">Place Order</p>
+        </button>
       </div>
     </form>
   </div>
