@@ -4,14 +4,6 @@ import { Observable, Subscription, tap } from 'rxjs';
 import { OrderDetailsAdmin } from '../models/interface';
 import { OrderType } from '../single-order/single-order.component';
 
-interface Order {
-  // foodName: string;
-  name: string;
-  phoneNumber: string;
-  location: string;
-  extraComments?: string;
-}
-
 @Component({
   selector: 'app-display-page',
   templateUrl: './display-page.component.html',
@@ -114,9 +106,7 @@ export class DisplayPageComponent implements OnInit {
 
   onCancelOrder(id: string, orderId: string) {
     if (window.confirm(`Do you really want to delete oder: ${orderId}?`)) {
-      this.deleteOrder(id)
-        // .then((res) => console.log(res))
-        .catch((err) => console.log(err));
+      this.deleteOrder(id).catch((err) => console.log(err));
     }
   }
 
