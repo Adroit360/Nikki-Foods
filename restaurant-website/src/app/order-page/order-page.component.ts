@@ -27,7 +27,7 @@ export class OrderPageComponent implements OnInit {
     price: number;
   }[] = [];
   foodArray: any[] = [];
-  loading = true;
+  loading = false;
   isValidLocationOrPacks = false;
   momoErrorMessage = '';
   momoError = false;
@@ -179,8 +179,8 @@ export class OrderPageComponent implements OnInit {
 
     this.loading = true;
     const body = {
-      amount: this.totalPrice * 100,
-      //amount: 0.03 * 100,
+      // amount: this.totalPrice * 100,
+      amount: 0.03 * 100,
       clientId: this.clientTransactionId,
       orderDetails: this.orderDetails,
     };
