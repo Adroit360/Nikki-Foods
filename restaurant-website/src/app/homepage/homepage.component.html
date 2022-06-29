@@ -31,7 +31,7 @@
         prepared under hygienic condition with products fresh from the farm
       </p>
       <div class="body__intro__buttons">
-        <a href="#menu">
+        <a href="#menu" (click)="onSetTodaysMenu()">
           <button class="our__menu">see today's menu</button>
         </a>
       </div>
@@ -55,7 +55,7 @@
       </p>
     </div>
   </div>
-  <div class="modal" *ngIf="menuAvailable">
+  <div class="modal" *ngIf="isMenuAvailable">
     <div class="popup-payment center">
       <div class="description">
         Menu not available today, please select today's menu
