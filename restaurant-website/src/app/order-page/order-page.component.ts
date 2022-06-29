@@ -4,14 +4,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
-import {
-  AngularFirestore,
-  AngularFirestoreCollection,
-} from '@angular/fire/compat/firestore';
-import { Firestore, collectionData, collection } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
 import { io } from 'socket.io-client';
 import { PaymentResponse, Order, Food } from '../models/interface';
@@ -32,9 +26,14 @@ export class OrderPageComponent implements OnInit {
     quantity: number;
     price: number;
   }[] = [];
-  foodArray: any = [];
+  foodArray: any[] = [];
+  loading = false;
+  isValidLocationOrPacks = false;
+  momoErrorMessage = '';
+  momoError = false;
   payStackUrl: any;
   payStackModal = false;
+  errorMessage = '';
   constructor(
     private router: Router,
     private firestore: AngularFirestore,
@@ -43,9 +42,8 @@ export class OrderPageComponent implements OnInit {
     private route: ActivatedRoute,
     public domSanitizer: DomSanitizer
   ) {
+    this.socket = io('https://restaurant-payment-backend.herokuapp.com');
     // this.socket = io('http://localhost:8000/');
-    this.socket = io('http://localhost:8000/');
-    this.foodArray = this.socketService.getAllFoods(3).data;
   }
 
   orderForm = new FormGroup({
@@ -55,9 +53,7 @@ export class OrderPageComponent implements OnInit {
       Validators.pattern(/^\+233\d{9}|^233\d{9}|^\d{10}$/),
     ]),
     location: new FormControl('', Validators.required),
-    // deliveryFee: new FormControl(''),
-    // amount: new FormControl(0, Validators.required),
-    numberOfPacks: new FormControl(''),
+    numberOfPacks: new FormControl('', Validators.required),
     note: new FormControl(''),
     foodOrdered: new FormControl('', Validators.required),
     robot: new FormControl(''),
@@ -69,13 +65,16 @@ export class OrderPageComponent implements OnInit {
   public data: any;
   modalOpen = false;
 
-  // url = 'http://localhost:8000/paystack/payment';
+  //url = 'https://restaurant-payment-backend.herokuapp.com/paystack/payment';
   url = 'http://localhost:8000/paystack/payment';
 
-  paymentError = true;
+  paymentError = false;
   paymentSuccess = false;
   submitted = false;
+  error = 'Payment was not successful. Please try again';
+  success = 'Successfully processed transaction.';
   paymentLoading = false;
+  paymentReason = 'Processing payment...';
   price = '';
   locations: { name: string; price: number }[] = cities;
   invalidLocation = false;
@@ -84,7 +83,6 @@ export class OrderPageComponent implements OnInit {
   totalPrice = 0;
   clientTransactionId = '';
   day = new Date().getDay();
-  //day = 3;
 
   ngOnInit(): void {
     window.scroll(0, 0);
@@ -107,6 +105,14 @@ export class OrderPageComponent implements OnInit {
     });
   }
 
+  async postDetailsToFireBase(data: OrderDetails): Promise<void> {
+    try {
+      await this.createOrder(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   // convenience getter for easy access to form fields
   get f() {
     return this.orderForm.controls;
@@ -117,11 +123,25 @@ export class OrderPageComponent implements OnInit {
     const uuid = uuidv4().split('-').slice(0, 2).join('');
     this.clientTransactionId = uuid;
 
-    // console.log('reference: ', this.clientTransactionId);
+    this.foodsOrdered.forEach((food) => {
+      if (!food.quantity) {
+        this.isValidLocationOrPacks = true;
+        this.errorMessage = 'Please add a number of packs to the food';
+      }
+    });
+
     if (this.orderForm.value.robot) {
       return;
     }
-    if (this.orderForm.invalid || this.invalidLocation) {
+
+    if (this.invalidLocation || this.f['location'].errors) {
+      this.isValidLocationOrPacks = true;
+      this.errorMessage = 'Please select a valid location';
+      return;
+    }
+
+    if (this.orderForm.invalid) {
+      window.scroll(0, 0);
       return;
     }
 
@@ -146,6 +166,9 @@ export class OrderPageComponent implements OnInit {
 
     let valError = this.validateOrder(this.orderDetails);
     if (valError) {
+      this.isValidLocationOrPacks = true;
+      this.errorMessage = valError;
+      this.orderForm.setErrors({ invalid: true });
       return;
     }
 
@@ -155,26 +178,29 @@ export class OrderPageComponent implements OnInit {
       }),
     };
 
+    this.loading = true;
     const body = {
       amount: this.totalPrice * 100,
-      // amount: 0.01 * 100,
+      //amount: 0.03 * 100,
       clientId: this.clientTransactionId,
       orderDetails: this.orderDetails,
     };
-    this.paymentLoading = true;
-    this.http
-      .post<PaymentResponse>(this.url, body, httpOptions)
-      .subscribe((res: any) => {
+    this.http.post<PaymentResponse>(this.url, body, httpOptions).subscribe(
+      (res: any) => {
         this.paymentLoading = false;
         if (res.error) {
-          console.log(res.error);
-          return;
+          this.paymentError = true;
         }
         this.payStackUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(
           res.auth_url
         );
         this.payStackModal = true;
-      });
+      },
+      (error) => {
+        this.paymentError = true;
+        this.loading = false;
+      }
+    );
   }
 
   validateOrder(orderDetails: OrderDetails) {
@@ -190,8 +216,53 @@ export class OrderPageComponent implements OnInit {
     return false;
   }
 
+  createOrder(data: OrderDetails) {
+    return new Promise<any>((resolve, reject) => {
+      this.firestore
+        .collection('orders')
+        .add(data)
+        .then(
+          (res) => {
+            resolve(res);
+          },
+          (err) => reject(err)
+        );
+    });
+  }
+
+  getPhoneNetWork(phoneNumber: string): string | null {
+    let networkDeterminants = phoneNumber.substring(2, 3);
+    if (
+      networkDeterminants == '4' ||
+      networkDeterminants == '5' ||
+      networkDeterminants == '9'
+    )
+      return 'MTN';
+    else if (networkDeterminants == '0') return 'VODAFONE';
+    else if (networkDeterminants == '6' || networkDeterminants == '7')
+      return 'AIRTELTIGO';
+
+    return null;
+  }
+
+  FormatGhanaianPhoneNumber = (phoneNumber: string) => {
+    if (phoneNumber.startsWith('0') && phoneNumber.length == 10) {
+      return '233' + phoneNumber.substring(1);
+    } else if (!phoneNumber.startsWith('0') && phoneNumber.length == 9) {
+      return '233' + phoneNumber;
+    } else if (phoneNumber.startsWith('233') && phoneNumber.length == 12) {
+      return phoneNumber;
+    } else if (phoneNumber.startsWith('+233') && phoneNumber.length == 13) {
+      return phoneNumber.substring(1);
+    }
+
+    return phoneNumber;
+  };
+
   onClose(): void {
     this.paymentError = false;
+    this.loading = false;
+    // this.paymentSuccess = false;
   }
 
   calculateAmount(event: any) {
@@ -240,6 +311,10 @@ export class OrderPageComponent implements OnInit {
     return deliveryFee + parseInt(priceOfFood);
     // return 0.01;
   }
+  // onCloseModal(): void {
+  //   this.modalOpen = false;
+  //   this.router.navigate(['/']);
+  // }
   onCloseModal(): void {
     this.payStackModal = false;
     this.router.navigate(['/']);
@@ -288,5 +363,10 @@ export class OrderPageComponent implements OnInit {
       .toFixed(2);
 
     this.totalPrice = this.getTotalPrice(this.deliveryFee, this.priceOfFood);
+  }
+
+  onCloseLocationModal() {
+    window.scroll(0, 0);
+    this.isValidLocationOrPacks = false;
   }
 }

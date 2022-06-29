@@ -60,7 +60,7 @@ export class HomepageComponent implements OnInit {
       this.closed = true;
     } else {
       // get the food based on the current day
-      this.foodArray = this.socketService.getAllFoods(2);
+      this.foodArray = this.socketService.getAllFoods(this.day);
       this.closed = false;
     }
   }
