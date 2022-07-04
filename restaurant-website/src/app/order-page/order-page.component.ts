@@ -27,7 +27,7 @@ export class OrderPageComponent implements OnInit {
     price: number;
   }[] = [];
   foodArray: any[] = [];
-  loading = true;
+  loading = false;
   isValidLocationOrPacks = false;
   momoErrorMessage = '';
   momoError = false;
@@ -42,7 +42,7 @@ export class OrderPageComponent implements OnInit {
     private route: ActivatedRoute,
     public domSanitizer: DomSanitizer
   ) {
-    this.socket = io('https://restaurant-payment-backend.herokuapp.com');
+    this.socket = io('https://nikki-foods-api.azurewebsites.net');
     // this.socket = io('http://localhost:8000/');
   }
 
@@ -63,9 +63,8 @@ export class OrderPageComponent implements OnInit {
   private socket: any;
   public data: any;
   modalOpen = false;
-
-  //url = 'https://restaurant-payment-backend.herokuapp.com/paystack/payment';
-  url = 'http://localhost:8000/paystack/payment';
+  url = 'https://nikki-foods-api.azurewebsites.net/paystack/payment';
+  // url = 'http://localhost:8000/paystack/payment';
 
   paymentError = false;
   paymentSuccess = false;
@@ -82,6 +81,7 @@ export class OrderPageComponent implements OnInit {
   totalPrice = 0;
   clientTransactionId = '';
   day = new Date().getDay();
+  //day = 3;
 
   ngOnInit(): void {
     window.scroll(0, 0);
@@ -179,8 +179,8 @@ export class OrderPageComponent implements OnInit {
 
     this.loading = true;
     const body = {
-      amount: this.totalPrice * 100,
-      //amount: 0.03 * 100,
+      // amount: this.totalPrice * 100,
+      amount: 0.01 * 100,
       clientId: this.clientTransactionId,
       orderDetails: this.orderDetails,
     };

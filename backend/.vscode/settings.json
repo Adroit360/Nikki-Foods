@@ -1,0 +1,4 @@
+{
+	"appService.defaultWebAppToDeploy": "/subscriptions/e6a2523d-c438-4ca0-8117-9c15221c3e7c/microsoft.web/sites/subscriptions/e6a2523d-c438-4ca0-8117-9c15221c3e7c/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/nikki-foods-api",
+	"appService.deploySubpath": "."
+}

@@ -13,15 +13,15 @@ import { HttpClient } from '@angular/common/http';
 export class HomepageComponent implements OnInit {
   private socket: any;
   day = new Date().getDay();
-  // day = 3;
+  //day = 3;
   isMenuAvailable = false;
   constructor(
     private router: Router,
     private socketService: SocketService,
     private http: HttpClient
   ) {
-    // this.socket = io('http://localhost:8000/');
-    this.socket = io('http://localhost:8000/');
+    // this.socket = io('https://nikki-foods-api.azurewebsites.net/');
+    this.socket = io('https://nikki-foods-api.azurewebsites.net/');
   }
 
   foodArray: any;
@@ -37,25 +37,22 @@ export class HomepageComponent implements OnInit {
   subscription: Subscription = new Subscription();
 
   ngOnInit(): void {
-    this.http.get('http://localhost:8000/').subscribe((res: any) => {
-      this.orderStatus = res.orderStatus;
-      if (this.orderStatus) {
-        this.closingTimeError = true;
-      } else {
-        this.closingTimeError = false;
-      }
-    });
+    this.http
+      .get('https://nikki-foods-api.azurewebsites.net/')
+      .subscribe((res: any) => {
+        this.orderStatus = res.orderStatus;
+      });
 
     this.socket.on('orderStatus', (res: { orderStatus: boolean }) => {
       this.orderStatus = res.orderStatus;
-      if (res.orderStatus) {
-        this.closingTimeError = true;
-      } else {
-        this.closingTimeError = false;
-      }
     });
 
-    if (this.day === 6 || this.day === 0 || this.day === 1) {
+    if (
+      this.day === 6 ||
+      this.day === 0 ||
+      this.day === 1 ||
+      this.orderStatus
+    ) {
       this.closingTimeError = true;
       this.closed = true;
     } else {
