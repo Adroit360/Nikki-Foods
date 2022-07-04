@@ -15,6 +15,7 @@ export class SidebarComponent implements OnInit {
   closeOrder = false;
   private socket: any;
   showFailed = false;
+  day = new Date().getDay();
   @Output('toggleSideBar') toggleSidebarEvent = new EventEmitter();
   constructor(
     private authService: AuthenticationService,
@@ -32,7 +33,12 @@ export class SidebarComponent implements OnInit {
       .get('https://nikki-foods-api.azurewebsites.net/')
       .subscribe((res: any) => {
         this.orderStatus = res.orderStatus;
-        if (this.orderStatus) {
+        if (
+          this.orderStatus ||
+          this.day === 6 ||
+          this.day === 0 ||
+          this.day === 1
+        ) {
           this.closeOrder = true;
         }
       });
@@ -57,6 +63,9 @@ export class SidebarComponent implements OnInit {
   }
 
   onOpenOrders() {
+    if (this.day === 6 || this.day === 0 || this.day === 1) {
+      return;
+    }
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
