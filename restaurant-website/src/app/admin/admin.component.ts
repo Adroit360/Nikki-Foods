@@ -14,17 +14,19 @@ export class AdminComponent implements OnInit {
   private socket: any;
   toggleSidebar = false;
   constructor(private router: Router, private http: HttpClient) {
-    this.socket = io('http://localhost:8000/');
+    this.socket = io('https://nikki-foods-api.azurewebsites.net/');
   }
 
   ngOnInit(): void {
     this.router.navigate(['/admin/orders']);
-    this.http.get('http://localhost:8000/').subscribe((res: any) => {
-      this.orderStatus = res.orderStatus;
-      if (this.orderStatus) {
-        this.closeOrder = true;
-      }
-    });
+    this.http
+      .get('https://nikki-foods-api.azurewebsites.net/')
+      .subscribe((res: any) => {
+        this.orderStatus = res.orderStatus;
+        if (this.orderStatus) {
+          this.closeOrder = true;
+        }
+      });
 
     this.socket.on('orderStatus', (res: { orderStatus: boolean }) => {
       this.orderStatus = res.orderStatus;

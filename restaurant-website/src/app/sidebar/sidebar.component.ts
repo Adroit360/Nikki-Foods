@@ -22,18 +22,20 @@ export class SidebarComponent implements OnInit {
     private http: HttpClient,
     private activatedRoute: ActivatedRoute
   ) {
-    this.socket = io('http://localhost:8000/');
+    this.socket = io('https://nikki-foods-api.azurewebsites.net/');
     this.showFailed = activatedRoute.snapshot.queryParams['showFailed'];
     // console.log('showFailed', this.showFailed);
   }
 
   ngOnInit(): void {
-    this.http.get('http://localhost:8000/').subscribe((res: any) => {
-      this.orderStatus = res.orderStatus;
-      if (this.orderStatus) {
-        this.closeOrder = true;
-      }
-    });
+    this.http
+      .get('https://nikki-foods-api.azurewebsites.net/')
+      .subscribe((res: any) => {
+        this.orderStatus = res.orderStatus;
+        if (this.orderStatus) {
+          this.closeOrder = true;
+        }
+      });
 
     this.socket.on('orderStatus', (res: { orderStatus: boolean }) => {
       this.orderStatus = res.orderStatus;
@@ -61,7 +63,11 @@ export class SidebarComponent implements OnInit {
       }),
     };
     this.http
-      .post('http://localhost:8000/api/openOrders', {}, httpOptions)
+      .post(
+        'https://nikki-foods-api.azurewebsites.net/api/openOrders',
+        {},
+        httpOptions
+      )
       .subscribe();
     this.onToggleSidebar();
   }
@@ -73,7 +79,11 @@ export class SidebarComponent implements OnInit {
       }),
     };
     this.http
-      .post('http://localhost:8000/api/closeOrders', {}, httpOptions)
+      .post(
+        'https://nikki-foods-api.azurewebsites.net/api/closeOrders',
+        {},
+        httpOptions
+      )
       .subscribe();
     this.onToggleSidebar();
   }
