@@ -13,6 +13,7 @@ export class AdminComponent implements OnInit {
   closeOrder = false;
   private socket: any;
   toggleSidebar = false;
+  day = new Date().getDay();
   constructor(private router: Router, private http: HttpClient) {
     this.socket = io('https://nikki-foods-api.azurewebsites.net/');
   }
@@ -23,7 +24,12 @@ export class AdminComponent implements OnInit {
       .get('https://nikki-foods-api.azurewebsites.net/')
       .subscribe((res: any) => {
         this.orderStatus = res.orderStatus;
-        if (this.orderStatus) {
+        if (
+          this.orderStatus ||
+          this.day === 6 ||
+          this.day === 0 ||
+          this.day === 1
+        ) {
           this.closeOrder = true;
         }
       });

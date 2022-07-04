@@ -41,23 +41,18 @@ export class HomepageComponent implements OnInit {
       .get('https://nikki-foods-api.azurewebsites.net/')
       .subscribe((res: any) => {
         this.orderStatus = res.orderStatus;
-        if (this.orderStatus) {
-          this.closingTimeError = true;
-        } else {
-          this.closingTimeError = false;
-        }
       });
 
     this.socket.on('orderStatus', (res: { orderStatus: boolean }) => {
       this.orderStatus = res.orderStatus;
-      if (res.orderStatus) {
-        this.closingTimeError = true;
-      } else {
-        this.closingTimeError = false;
-      }
     });
 
-    if (this.day === 6 || this.day === 0 || this.day === 1) {
+    if (
+      this.day === 6 ||
+      this.day === 0 ||
+      this.day === 1 ||
+      this.orderStatus
+    ) {
       this.closingTimeError = true;
       this.closed = true;
     } else {
