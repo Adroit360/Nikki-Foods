@@ -42,8 +42,8 @@ export class OrderPageComponent implements OnInit {
     private route: ActivatedRoute,
     public domSanitizer: DomSanitizer
   ) {
-    // this.socket = io('https://restaurant-payment-backend.herokuapp.com');
-    this.socket = io('http://localhost:8000/');
+    this.socket = io('https://nikki-foods-api.azurewebsites.net');
+    // this.socket = io('http://localhost:8000/');
   }
 
   orderForm = new FormGroup({
@@ -63,9 +63,8 @@ export class OrderPageComponent implements OnInit {
   private socket: any;
   public data: any;
   modalOpen = false;
-
-  //url = 'https://restaurant-payment-backend.herokuapp.com/paystack/payment';
-  url = 'http://localhost:8000/paystack/payment';
+  url = 'https://nikki-foods-api.azurewebsites.net/paystack/payment';
+  // url = 'http://localhost:8000/paystack/payment';
 
   paymentError = false;
   paymentSuccess = false;
