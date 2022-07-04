@@ -81,7 +81,8 @@ export class OrderPageComponent implements OnInit {
   deliveryFee = 0;
   totalPrice = 0;
   clientTransactionId = '';
-  day = new Date().getDay();
+  // day = new Date().getDay();
+  day = 3;
 
   ngOnInit(): void {
     window.scroll(0, 0);
