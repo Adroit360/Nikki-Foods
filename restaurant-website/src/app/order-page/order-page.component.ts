@@ -42,8 +42,8 @@ export class OrderPageComponent implements OnInit {
     private route: ActivatedRoute,
     public domSanitizer: DomSanitizer
   ) {
-    this.socket = io('https://restaurant-payment-backend.herokuapp.com');
-    // this.socket = io('http://localhost:8000/');
+    // this.socket = io('https://restaurant-payment-backend.herokuapp.com');
+    this.socket = io('http://localhost:8000/');
   }
 
   orderForm = new FormGroup({
@@ -180,7 +180,7 @@ export class OrderPageComponent implements OnInit {
     this.loading = true;
     const body = {
       // amount: this.totalPrice * 100,
-      amount: 0.03 * 100,
+      amount: 0.01 * 100,
       clientId: this.clientTransactionId,
       orderDetails: this.orderDetails,
     };
