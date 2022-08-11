@@ -42,11 +42,18 @@ export class HomepageComponent implements OnInit {
         this.orderStatus = res.orderStatus;
         if (this.orderStatus) {
           this.closingTimeError = true;
+        } else {
+          this.closingTimeError = false;
         }
       });
 
     this.socket.on('orderStatus', (res: { orderStatus: boolean }) => {
       this.orderStatus = res.orderStatus;
+      if (this.orderStatus) {
+        this.closingTimeError = true;
+      } else {
+        this.closingTimeError = false;
+      }
     });
 
     if (this.day === 6 || this.day === 0 || this.day === 1) {
