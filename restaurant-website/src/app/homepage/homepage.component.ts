@@ -12,8 +12,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HomepageComponent implements OnInit {
   private socket: any;
-  // day = new Date().getDay();
-  day = 6;
+  day = new Date().getDay();
+  // day = 6;
   isMenuAvailable = false;
   constructor(
     private router: Router,
