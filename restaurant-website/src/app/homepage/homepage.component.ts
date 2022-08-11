@@ -12,15 +12,14 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HomepageComponent implements OnInit {
   private socket: any;
-  day = new Date().getDay();
-  //day = 3;
+  // day = new Date().getDay();
+  day = 6;
   isMenuAvailable = false;
   constructor(
     private router: Router,
     private socketService: SocketService,
     private http: HttpClient
   ) {
-    // this.socket = io('https://nikki-foods-api.azurewebsites.net/');
     this.socket = io('https://nikki-foods-api.azurewebsites.net/');
   }
 
@@ -41,18 +40,16 @@ export class HomepageComponent implements OnInit {
       .get('https://nikki-foods-api.azurewebsites.net/')
       .subscribe((res: any) => {
         this.orderStatus = res.orderStatus;
+        if (this.orderStatus) {
+          this.closingTimeError = true;
+        }
       });
 
     this.socket.on('orderStatus', (res: { orderStatus: boolean }) => {
       this.orderStatus = res.orderStatus;
     });
 
-    if (
-      this.day === 6 ||
-      this.day === 0 ||
-      this.day === 1 ||
-      this.orderStatus
-    ) {
+    if (this.day === 6 || this.day === 0 || this.day === 1) {
       this.closingTimeError = true;
       this.closed = true;
     } else {

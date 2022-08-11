@@ -97,18 +97,13 @@ export class AdminComponent implements OnInit {
       this.paidOrders = items.filter(
         (item) => item.completed === false && item.orderPaid
       );
-      // console.log(this.paidOrders);
-      // console.log(items);
-
-      // console.log(this.foodOrdered);
-      // this.amountTobePayed = +(this.totalAmount * 0.8).toFixed(2); // calculate 20% of the total food revenue
+      this.amountTobePayed = +(this.totalAmount * 0.8).toFixed(2); // calculate 20% of the total food revenue
     });
 
     this.subscriptions.push(itemSubs);
   }
 
   ngOnInit(): void {
-    // this.router.navigate(['/admin/orders']);
     this.http
       .get('https://nikki-foods-api.azurewebsites.net/')
       .subscribe((res: any) => {
