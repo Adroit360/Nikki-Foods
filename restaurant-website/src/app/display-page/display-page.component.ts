@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable, Subscription, tap } from 'rxjs';
 import { OrderDetailsAdmin } from '../models/interface';
@@ -10,7 +10,10 @@ import { OrderType } from '../single-order/single-order.component';
   styleUrls: ['./display-page.component.scss'],
 })
 export class DisplayPageComponent implements OnInit {
-  orders$: Observable<OrderDetailsAdmin[]>;
+  @Input()
+  foodArray: OrderDetailsAdmin[] = [];
+
+  // orders$: Observable<OrderDetailsAdmin[]>;
   OrderType = OrderType;
   notificationAudio = new Audio('../../assets/Short-notification-sound.mp3');
   isFirstTime = true;
@@ -28,41 +31,41 @@ export class DisplayPageComponent implements OnInit {
   ).setHours(23, 59, 59, 999);
   foodOrdered: OrderDetailsAdmin[] = [];
   constructor(private firestore: AngularFirestore) {
-    this.orders$ = this.onGetTotalOrdersCollection();
-    let itemSubs = this.orders$.subscribe((res) => {
-      if (!this.isFirstTime && res.length > this.itemLength)
-        this.notificationAudio.play();
-      else this.isFirstTime = false;
-
-      this.itemLength = res.length;
-    });
-
+    console.log(this.foodArray);
+    // if (this.foodArray.length) {
+    //   console.log(this.foodArray);
+    // }
+    // this.orders$ = this.onGetTotalOrdersCollection();
+    // let itemSubs = this.orders$.subscribe((res) => {
+    //   if (!this.isFirstTime && res.length > this.itemLength)
+    //     this.notificationAudio.play();
+    //   else this.isFirstTime = false;
+    //   this.itemLength = res.length;
+    // });
     // get the total orders and total amount
-    this.orders$.subscribe((items) => {
-      this.totalAmount = 0;
-      this.totalOrders = 0;
-      this.foodOrdered = [];
-      items.forEach((item) => {
-        if (
-          parseInt(item.date) >= this.startDate.getTime() &&
-          parseInt(item.date) <= this.endDate
-        ) {
-          if (!item.completed) {
-            this.foodOrdered.push(item);
-          }
-          this.totalAmount += parseFloat(item.priceOfFood);
-          this.totalOrders += 1;
-        }
-      });
-      this.amountTobePayed = +(this.totalAmount * 0.86).toFixed(2); // calculate 14% of the total food revenue
-    });
-
-    this.subscriptions.push(itemSubs);
+    // this.foodArray.forEach((item) => {
+    //   // console.log(item);
+    //   this.totalAmount = 0;
+    //   this.totalOrders = 0;
+    //   this.foodOrdered = [];
+    //   if (
+    //     parseInt(item.date) >= this.startDate.getTime() &&
+    //     parseInt(item.date) <= this.endDate
+    //   ) {
+    //     if (!item.completed) {
+    //       this.foodOrdered.push(item);
+    //     }
+    //     this.totalAmount += parseFloat(item.priceOfFood);
+    //     this.totalOrders += 1;
+    //   }
+    //   this.amountTobePayed = +(this.totalAmount * 0.8).toFixed(2); // calculate 20% of the total food revenue
+    // });
   }
 
   success: boolean = false;
 
   ngOnInit(): void {
+    // this.currentOrders();
     // let authUserstring = localStorage.getItem('authUser');
     // if (authUserstring) {
     //   let authUser = JSON.parse(authUserstring);
